@@ -23,6 +23,9 @@ class TimeBlock:
             return None
         return TimeBlock(new_start, new_end)
 
+    def __repr__(self):
+        return "({0}, {1})".format(self.start, self.end)
+
 class DateBlock:
     def __init__(self, name, timeblocks=[], collisions=[]):
         self.name = name
@@ -62,12 +65,19 @@ class ScheduleBlock:
                                             collisions=tb1.collisions)
             date_counter += 1
 
-def scheduler(scheduleblocks):
-    if len(scheduleblocks) < 2:
-        return scheduleblocks
-    scheduleblocks[0].find_dateblock_collisions(scheduleblocks[1])
+class ScheduleGroup:
+    def __init__(self, scheduleblocks, group_id):
+        self.id = group_id
+        self.scheduleblocks = scheduleblocks
+
+def scheduler(group):
+    if len(group.scheduleblocks) < 2:
+        return group.scheduleblocks
+    group.scheduleblocks[0].find_dateblock_collisions(
+                                group.scheduleblocks[1])
     # parse the rest of the schedules
-    for i in range(2, len(scheduleblocks)):
-        scheduleblocks[0].find_dateblock_collisions(scheduleblocks[i])
-    return scheduleblocks[0]
+    for i in range(2, len(group.scheduleblocks)):
+        group.scheduleblocks[0].find_dateblock_collisions(
+                                group.scheduleblocks[i])
+    return group.scheduleblocks[0]
 
