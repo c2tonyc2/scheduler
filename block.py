@@ -12,13 +12,15 @@ class TimeBlock:
         # Detect collision between time blocks
         new_start, new_end = None, None
         if (tb2.start <= tb1.start < tb2.end):
-            new_start = tb1.start
             if tb1.end <= tb2.end:
-                new_end = tb1.end
+                return tb1
+            new_start = tb1.start
             new_end = tb2.end
         elif (tb2.start < tb1.end <= tb2.end):
             new_start = tb2.start
             new_end = tb1.end
+        elif (tb1.start < tb2.start and tb1.end > tb2.end):
+            return tb2
         else:
             return None
         return TimeBlock(new_start, new_end)
@@ -47,6 +49,9 @@ class DateBlock:
                 self_counter += 1
             else: 
                 db2_counter += 1
+
+    def __repr__(self):
+        return "{0}: {1}".format(self.name, self.collisions.__str__())
 
 class ScheduleBlock:
     def __init__(self, name, dateblocks=[]):
