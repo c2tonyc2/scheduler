@@ -12,3 +12,30 @@ body {
   background: #9ABEAA;
   color: white;
 }
+
+.jumbotron {
+  height: 400px;
+}
+
+.jumbotron .container .logo img {
+  width: 75px;
+  height: 75px;
+}
+
+.jumbotron .container .breadcrumb {
+  background: transparent;
+}
+
+.jumbotron .container .breadcrumb li {
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+.jumbotron .container .breadcrumb a {
+  color: #9ABEAA;
+}
+
+.jumbotron .container .breadcrumb a:hover {
+  text-decoration: none;
+  color: #9ABEAA;
+}
