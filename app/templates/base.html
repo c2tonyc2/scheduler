@@ -5,6 +5,9 @@
     {% else %}
     <title>Welcome to scheduler</title>
     {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div>Scheduler: <a href="/index">Home</a></div>
@@ -19,5 +22,6 @@
       {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
   </body>
 </html>
