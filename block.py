@@ -35,6 +35,7 @@ class DateBlock:
         self.collisions = collisions
 
     def find_timeblock_collisions(self, db2):
+        self.collisions = []
         self_counter, db2_counter = 0, 0
         while self_counter < len(self.timeblocks) and \
                db2_counter < len(db2.timeblocks):
@@ -51,7 +52,7 @@ class DateBlock:
                 db2_counter += 1
 
     def __repr__(self):
-        return "{0}: {1}".format(self.name, self.collisions.__str__())
+        return "{0}: {1}".format(self.name, self.timeblocks.__str__())
 
 class ScheduleBlock:
     def __init__(self, name, dateblocks=[]):
@@ -60,15 +61,21 @@ class ScheduleBlock:
 
     def find_dateblock_collisions(self, sb2):
         date_counter = 0
-        while date_counter < len(self.timeblocks):
+        while date_counter < len(self.dateblocks):
 
-            tb1 = self.timeblocks[date_counter]
-            tb2 = db2.timeblocks[date_counter]
+            tb1 = self.dateblocks[date_counter]
+            tb2 = sb2.dateblocks[date_counter]
             tb1.find_timeblock_collisions(tb2)
-            # Destructive buildup may have to save meta data based on features
-            self.dateblocks[date_counter] = DateBlock(tb1.name, 
-                                            collisions=tb1.collisions)
+            # Destructive constuction!! Save meta data based on features
+            self.dateblocks[date_counter] = DateBlock(tb1.name,
+                                              collisions=tb1.collisions)
             date_counter += 1
+
+    def __repr__(self):
+        string = ""
+        for dateblock in self.dateblocks:
+            string += "{0}\n".format(dateblock.__str__())
+        return string
 
 class ScheduleGroup:
     def __init__(self, scheduleblocks, group_id):
